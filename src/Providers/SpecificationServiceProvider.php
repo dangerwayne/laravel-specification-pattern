@@ -33,18 +33,14 @@ class SpecificationServiceProvider extends ServiceProvider
     {
         // Add Collection macro
         Collection::macro('whereSpecification', function ($specification) {
-            $collection = $this;
-
-            return $collection->filter(function ($item) use ($specification) {
-                return $specification->isSatisfiedBy($item);
-            });
+            /** @var Collection $this */
+            return $this->filter(fn ($item) => $specification->isSatisfiedBy($item));
         });
 
         // Add Builder macro
         Builder::macro('whereSpecification', function ($specification) {
-            $builder = $this;
-
-            return $specification->toQuery($builder);
+            /** @var Builder $this */
+            return $specification->toQuery($this);
         });
     }
 }

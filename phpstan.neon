@@ -1,7 +1,4 @@
 parameters:
-    level: 6
+    level: 5
     paths:
         - src
-    ignoreErrors:
-        -
-            message: '#generic class Illuminate\\Database\\Eloquent\\Builder#'
