@@ -24,7 +24,7 @@ class WhereSpecification extends AbstractSpecification
             '>=' => $candidateValue >= $this->value,
             '<' => $candidateValue < $this->value,
             '<=' => $candidateValue <= $this->value,
-            'like' => str_contains(strtolower($candidateValue), strtolower(trim($this->value, '%'))),
+            'like' => strpos(strtolower($candidateValue), strtolower(trim($this->value, '%'))) !== false,
             default => false,
         };
     }
