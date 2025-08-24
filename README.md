@@ -1,10 +1,10 @@
-# Laravel Specification Pattern
+# Laravel Specifications
 
 A powerful implementation of the Specification Pattern for Laravel applications.
 
-[![Tests](https://github.com/dangerwayne/laravel-specification-pattern/actions/workflows/tests.yml/badge.svg)](https://github.com/dangerwayne/laravel-specification-pattern/actions/workflows/tests.yml)
-[![Latest Version](https://img.shields.io/packagist/v/dangerwayne/laravel-specification-pattern.svg?style=flat-square)](https://packagist.org/packages/dangerwayne/laravel-specification-pattern)
-[![Total Downloads](https://img.shields.io/packagist/dt/dangerwayne/laravel-specification-pattern.svg?style=flat-square)](https://packagist.org/packages/dangerwayne/laravel-specification-pattern)
+[![Tests](https://github.com/dangerwayne/laravel-specifications/actions/workflows/tests.yml/badge.svg)](https://github.com/dangerwayne/laravel-specifications/actions/workflows/tests.yml)
+[![Latest Version](https://img.shields.io/packagist/v/dangerwayne/laravel-specifications.svg?style=flat-square)](https://packagist.org/packages/dangerwayne/laravel-specifications)
+[![Total Downloads](https://img.shields.io/packagist/dt/dangerwayne/laravel-specifications.svg?style=flat-square)](https://packagist.org/packages/dangerwayne/laravel-specifications)
 
 ## Features
 
@@ -21,7 +21,7 @@ A powerful implementation of the Specification Pattern for Laravel applications.
 ## Installation
 
 ```bash
-composer require dangerwayne/laravel-specification-pattern
+composer require dangerwayne/laravel-specifications
 ```
 
 The package will automatically register its service provider.

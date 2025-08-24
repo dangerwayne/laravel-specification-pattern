@@ -1,5 +1,5 @@
 {
-    "name": "dangerwayne/laravel-specification-pattern",
+    "name": "dangerwayne/laravel-specifications",
     "description": "Elegant specification pattern implementation for Laravel with support for Eloquent queries and in-memory filtering",
     "keywords": ["laravel", "specification", "pattern", "ddd", "domain-driven-design", "business-rules"],
     "type": "library",
