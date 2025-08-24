@@ -42,9 +42,9 @@ class ServiceProviderTest extends TestCase
         ]);
 
         $spec = new \DangerWayne\Specification\Specifications\Common\WhereSpecification('status', '=', 'active');
-        
+
         $result = $collection->whereSpecification($spec);
-        
+
         $this->assertCount(1, $result);
     }
 }
