@@ -248,7 +248,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Your Name](https://github.com/yourusername)
+- [Barry Stovall](https://github.com/bstovall)
 - [All Contributors](../../contributors)
 
 ## License
