@@ -33,4 +33,18 @@ class ServiceProviderTest extends TestCase
     {
         $this->assertTrue(Builder::hasGlobalMacro('whereSpecification'));
     }
+
+    public function test_collection_macro_actually_works(): void
+    {
+        $collection = collect([
+            (object) ['status' => 'active'],
+            (object) ['status' => 'inactive'],
+        ]);
+
+        $spec = new \DangerWayne\Specification\Specifications\Common\WhereSpecification('status', '=', 'active');
+        
+        $result = $collection->whereSpecification($spec);
+        
+        $this->assertCount(1, $result);
+    }
 }
