@@ -85,6 +85,20 @@ jobs:
       - name: Execute PHPStan
         run: vendor/bin/phpstan analyse --no-progress
 
+  code-style:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: mbstring, pdo, pdo_sqlite
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-interaction
+
       - name: Execute Pint
         run: vendor/bin/pint --test
 
