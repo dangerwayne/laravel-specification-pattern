@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2025-08-26
+
+### Added
+- **Artisan Generator Command**: `php artisan make:specification` for scaffolding specifications
+- **Domain Organization**: Support for organizing specifications by domain/module (e.g., `Bookmark/SearchSpecification`)
+- **Model Binding**: Generate model-specific specifications with `--model` option
+- **Multiple Stub Templates**: 7 specialized stubs for different specification patterns:
+  - Basic specification template
+  - Model-bound specification template  
+  - Composite specification template (with example composition)
+  - Cacheable specification template (with caching trait)
+  - Builder pattern specification template (using fluent builder)
+  - PHPUnit test template
+  - Pest test template
+- **Test Generation**: Automatic test creation with `--test` and `--pest` options
+- **Stub Publishing**: Customizable stubs via `php artisan vendor:publish --tag=specification-stubs`
+- **Advanced Command Options**: Support for combining multiple options (`--composite`, `--cacheable`, `--builder`, etc.)
+- **Inline Mode**: `--inline` option for flat specification structure without domain folders
+
+### Enhanced
+- **Developer Experience**: Laravel-native command experience with comprehensive option support
+- **Documentation**: Updated README with complete Artisan command usage examples
+
+### Technical
+- 12 comprehensive tests for command functionality
+- PHPStan level 8 compliance maintained
+- Laravel Pint code formatting applied
+- Full backward compatibility with existing features
+
 ## [0.1.1] - 2025-08-24
 
 ### Changed
