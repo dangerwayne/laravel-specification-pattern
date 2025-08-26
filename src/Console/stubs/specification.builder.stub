@@ -1,0 +1,147 @@
+<?php
+
+namespace {{ namespace }};
+
+use DangerWayne\Specification\Contracts\SpecificationInterface;
+use DangerWayne\Specification\Specifications\AbstractSpecification;
+use DangerWayne\Specification\Specifications\Builders\SpecificationBuilder;
+use Illuminate\Database\Eloquent\Builder;
+
+class {{ class }} extends AbstractSpecification
+{
+    /**
+     * The specification builder instance.
+     *
+     * @var SpecificationBuilder
+     */
+    private SpecificationBuilder $builder;
+
+    /**
+     * The built specification instance.
+     *
+     * @var SpecificationInterface|null
+     */
+    private ?SpecificationInterface $builtSpecification = null;
+
+    /**
+     * Create a new specification instance with builder pattern.
+     */
+    public function __construct()
+    {
+        $this->builder = new SpecificationBuilder();
+        $this->buildSpecification();
+    }
+
+    /**
+     * Build the specification using the fluent builder.
+     *
+     * @return void
+     */
+    protected function buildSpecification(): void
+    {
+        // TODO: Add your specification rules here using the fluent builder
+        // Example:
+        // $this->builder
+        //     ->where('status', 'active')
+        //     ->whereNotNull('email_verified_at')
+        //     ->where('age', '>=', 18)
+        //     ->whereIn('role', ['admin', 'moderator', 'user']);
+        
+        // You can also use advanced features:
+        // $this->builder
+        //     ->whereBetween('created_at', [now()->subDays(30), now()])
+        //     ->whereHas('subscription', function($query) {
+        //         $query->where('status', 'active');
+        //     });
+    }
+
+    /**
+     * Determine if the candidate satisfies the specification.
+     *
+     * @param  mixed  $candidate
+     * @return bool
+     */
+    public function isSatisfiedBy(mixed $candidate): bool
+    {
+        $specification = $this->getBuiltSpecification();
+        
+        return $specification->isSatisfiedBy($candidate);
+    }
+
+    /**
+     * Apply the specification to a query builder.
+     *
+     * @param  Builder  $query
+     * @return Builder
+     */
+    public function toQuery(Builder $query): Builder
+    {
+        $specification = $this->getBuiltSpecification();
+        
+        return $specification->toQuery($query);
+    }
+
+    /**
+     * Get the built specification, building it if necessary.
+     *
+     * @return SpecificationInterface
+     */
+    protected function getBuiltSpecification(): SpecificationInterface
+    {
+        if ($this->builtSpecification === null) {
+            $this->builtSpecification = $this->builder->build();
+        }
+        
+        return $this->builtSpecification;
+    }
+
+    /**
+     * Get the underlying builder for advanced configuration.
+     *
+     * @return SpecificationBuilder
+     */
+    public function getBuilder(): SpecificationBuilder
+    {
+        return $this->builder;
+    }
+
+    /**
+     * Reset the builder and clear the built specification.
+     *
+     * @return self
+     */
+    public function reset(): self
+    {
+        $this->builder = new SpecificationBuilder();
+        $this->builtSpecification = null;
+        $this->buildSpecification();
+        
+        return $this;
+    }
+
+    /**
+     * Add additional conditions to the builder.
+     *
+     * @param  \Closure  $callback
+     * @return self
+     */
+    public function extend(\Closure $callback): self
+    {
+        $callback($this->builder);
+        $this->builtSpecification = null; // Reset the built specification
+        
+        return $this;
+    }
+
+    /**
+     * Get the specification parameters for cache key generation.
+     *
+     * @return array<string, mixed>
+     */
+    protected function getParameters(): array
+    {
+        return [
+            'built_spec' => $this->getBuiltSpecification()->getCacheKey(),
+        ];
+    }
+}

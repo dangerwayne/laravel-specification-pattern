@@ -8,6 +8,7 @@ A powerful implementation of the Specification Pattern for Laravel applications.
 
 ## Features
 
+- **Artisan Generator**: Create specifications with `php artisan make:specification`
 - **Eloquent Integration**: Seamlessly works with Laravel's Eloquent ORM
 - **Collection Support**: Filter in-memory collections using the same specifications
 - **Fluent Builder**: Intuitive API for building complex specifications
@@ -25,6 +26,69 @@ composer require dangerwayne/laravel-specifications
 ```
 
 The package will automatically register its service provider.
+
+## Artisan Command
+
+Generate specification classes effortlessly using the artisan command:
+
+```bash
+php artisan make:specification UserActiveSpecification
+```
+
+### Command Options
+
+#### Domain Organization
+Organize specifications by domain or module:
+```bash
+php artisan make:specification Bookmark/SearchSpecification
+php artisan make:specification Order/HighValueOrderSpecification
+```
+
+#### Model Binding
+Generate specifications bound to specific models:
+```bash
+php artisan make:specification UserPremiumSpecification --model=User
+```
+
+#### Advanced Options
+```bash
+# Composite specification with example composition
+php artisan make:specification ComplexFilterSpecification --composite
+
+# Include caching support
+php artisan make:specification ExpensiveSpecification --cacheable
+
+# Use builder pattern for complex rules
+php artisan make:specification AdvancedRulesSpecification --builder
+
+# Generate with test file
+php artisan make:specification TestedSpecification --test
+
+# Generate with Pest test
+php artisan make:specification PestSpecification --pest
+
+# Force overwrite existing file
+php artisan make:specification ExistingSpecification --force
+```
+
+#### Combined Options
+```bash
+# Model-bound specification with caching and test
+php artisan make:specification Order/PremiumOrderSpecification --model=Order --cacheable --test
+
+# Composite specification with builder pattern
+php artisan make:specification Product/ComplexSearchSpecification --composite --builder
+```
+
+### Publishing Stubs
+
+Customize the generated specifications by publishing the stubs:
+
+```bash
+php artisan vendor:publish --tag=specification-stubs
+```
+
+The stubs will be published to `resources/stubs/specification/` where you can modify them to match your coding style and requirements.
 
 ## Basic Usage
 

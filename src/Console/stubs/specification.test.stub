@@ -1,0 +1,121 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedClass }};
+use DangerWayne\Specification\Tests\TestCase;
+use Illuminate\Database\Eloquent\Builder;
+use Mockery;
+
+class {{ class }}Test extends TestCase
+{
+    private {{ class }} $specification;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        
+        $this->specification = new {{ class }}();
+    }
+
+    /**
+     * Test that the specification can be instantiated.
+     */
+    public function test_it_can_be_instantiated(): void
+    {
+        $this->assertInstanceOf({{ class }}::class, $this->specification);
+    }
+
+    /**
+     * Test that the specification correctly validates candidates.
+     */
+    public function test_it_correctly_validates_candidates(): void
+    {
+        // TODO: Create a mock candidate that should satisfy the specification
+        $validCandidate = (object) [
+            // Add properties that should satisfy the specification
+        ];
+
+        // TODO: Create a mock candidate that should NOT satisfy the specification
+        $invalidCandidate = (object) [
+            // Add properties that should NOT satisfy the specification
+        ];
+
+        // Assert that valid candidate satisfies the specification
+        $this->assertTrue(
+            $this->specification->isSatisfiedBy($validCandidate),
+            'Valid candidate should satisfy the specification'
+        );
+
+        // Assert that invalid candidate does not satisfy the specification
+        $this->assertFalse(
+            $this->specification->isSatisfiedBy($invalidCandidate),
+            'Invalid candidate should not satisfy the specification'
+        );
+    }
+
+    /**
+     * Test that the specification correctly modifies query builder.
+     */
+    public function test_it_correctly_modifies_query_builder(): void
+    {
+        // Create a mock query builder
+        $builder = Mockery::mock(Builder::class);
+
+        // TODO: Set up expectations for how the query should be modified
+        // Example:
+        // $builder->shouldReceive('where')
+        //     ->once()
+        //     ->with('status', 'active')
+        //     ->andReturnSelf();
+
+        // Apply the specification to the query
+        $result = $this->specification->toQuery($builder);
+
+        // Assert the query builder was returned
+        $this->assertSame($builder, $result);
+    }
+
+    /**
+     * Test that the specification can be combined with others.
+     */
+    public function test_it_can_be_combined_with_other_specifications(): void
+    {
+        $anotherSpec = Mockery::mock({{ class }}::class);
+        $anotherSpec->shouldReceive('isSatisfiedBy')->andReturn(true);
+        $anotherSpec->shouldReceive('toQuery')->andReturnUsing(fn($q) => $q);
+
+        // Test AND combination
+        $andSpec = $this->specification->and($anotherSpec);
+        $this->assertNotNull($andSpec);
+
+        // Test OR combination
+        $orSpec = $this->specification->or($anotherSpec);
+        $this->assertNotNull($orSpec);
+
+        // Test NOT combination
+        $notSpec = $this->specification->not();
+        $this->assertNotNull($notSpec);
+    }
+
+    /**
+     * Test that the specification generates a proper cache key.
+     */
+    public function test_it_generates_proper_cache_key(): void
+    {
+        $cacheKey = $this->specification->getCacheKey();
+
+        $this->assertIsString($cacheKey);
+        $this->assertNotEmpty($cacheKey);
+        
+        // Ensure cache key is consistent
+        $secondCacheKey = $this->specification->getCacheKey();
+        $this->assertEquals($cacheKey, $secondCacheKey);
+    }
+
+    protected function tearDown(): void
+    {
+        Mockery::close();
+        parent::tearDown();
+    }
+}
