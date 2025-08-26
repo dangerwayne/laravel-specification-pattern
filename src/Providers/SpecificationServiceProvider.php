@@ -2,6 +2,7 @@
 
 namespace DangerWayne\Specification\Providers;
 
+use DangerWayne\Specification\Console\Commands\SpecificationMakeCommand;
 use DangerWayne\Specification\Specifications\Builders\SpecificationBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -21,9 +22,20 @@ class SpecificationServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if ($this->app->runningInConsole()) {
+            // Register the command
+            $this->commands([
+                SpecificationMakeCommand::class,
+            ]);
+
+            // Publish config
             $this->publishes([
                 __DIR__.'/../../config/specification.php' => config_path('specification.php'),
             ], 'specification-config');
+
+            // Publish stubs for customization
+            $this->publishes([
+                __DIR__.'/../Console/stubs' => resource_path('stubs/specification'),
+            ], 'specification-stubs');
         }
 
         $this->registerMacros();

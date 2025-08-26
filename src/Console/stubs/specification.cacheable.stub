@@ -1,0 +1,115 @@
+<?php
+
+namespace {{ namespace }};
+
+use DangerWayne\Specification\Specifications\AbstractSpecification;
+use DangerWayne\Specification\Traits\CacheableSpecification;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Cache;
+
+class {{ class }} extends AbstractSpecification
+{
+    use CacheableSpecification;
+
+    /**
+     * The cache TTL in seconds.
+     *
+     * @var int
+     */
+    protected int $cacheTtl = 3600;
+
+    /**
+     * Create a new cacheable specification instance.
+     */
+    public function __construct(
+        // Add your parameters here
+    ) {
+        //
+    }
+
+    /**
+     * Determine if the candidate satisfies the specification.
+     *
+     * @param  mixed  $candidate
+     * @return bool
+     */
+    public function isSatisfiedBy(mixed $candidate): bool
+    {
+        // Use caching for expensive operations
+        return Cache::remember(
+            $this->getCacheKey().'_satisfied_'.spl_object_id($candidate),
+            $this->cacheTtl,
+            function () use ($candidate) {
+                // TODO: Implement your cacheable business rule logic here
+                // Example: return $this->performExpensiveCheck($candidate);
+                
+                return false;
+            }
+        );
+    }
+
+    /**
+     * Apply the specification to a query builder.
+     * Note: Query building typically shouldn't be cached as it modifies the builder.
+     *
+     * @param  Builder  $query
+     * @return Builder
+     */
+    public function toQuery(Builder $query): Builder
+    {
+        // TODO: Implement your query logic here
+        // Example: return $query->where('status', 'active');
+        
+        return $query;
+    }
+
+    /**
+     * Get the cache key for this specification.
+     *
+     * @return string
+     */
+    public function getCacheKey(): string
+    {
+        return sprintf(
+            'spec:%s:%s',
+            class_basename($this),
+            md5(serialize($this->getParameters()))
+        );
+    }
+
+    /**
+     * Get the specification parameters for cache key generation.
+     *
+     * @return array<string, mixed>
+     */
+    protected function getParameters(): array
+    {
+        return [
+            // List your constructor parameters here
+            // Example: 'status' => $this->status,
+        ];
+    }
+
+    /**
+     * Clear the cache for this specification.
+     *
+     * @return void
+     */
+    public function clearCache(): void
+    {
+        Cache::forget($this->getCacheKey());
+    }
+
+    /**
+     * Set the cache TTL.
+     *
+     * @param  int  $seconds
+     * @return self
+     */
+    public function setCacheTtl(int $seconds): self
+    {
+        $this->cacheTtl = $seconds;
+        
+        return $this;
+    }
+}

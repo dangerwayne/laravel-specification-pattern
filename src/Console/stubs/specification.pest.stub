@@ -1,0 +1,89 @@
+<?php
+
+use {{ namespacedClass }};
+use Illuminate\Database\Eloquent\Builder;
+
+beforeEach(function () {
+    $this->specification = new {{ class }}();
+});
+
+it('can be instantiated', function () {
+    expect($this->specification)->toBeInstanceOf({{ class }}::class);
+});
+
+it('correctly validates candidates', function () {
+    // TODO: Create a mock candidate that should satisfy the specification
+    $validCandidate = (object) [
+        // Add properties that should satisfy the specification
+    ];
+
+    // TODO: Create a mock candidate that should NOT satisfy the specification
+    $invalidCandidate = (object) [
+        // Add properties that should NOT satisfy the specification
+    ];
+
+    // Assert that valid candidate satisfies the specification
+    expect($this->specification->isSatisfiedBy($validCandidate))->toBeTrue();
+
+    // Assert that invalid candidate does not satisfy the specification
+    expect($this->specification->isSatisfiedBy($invalidCandidate))->toBeFalse();
+});
+
+it('correctly modifies query builder', function () {
+    // Create a mock query builder
+    $builder = Mockery::mock(Builder::class);
+
+    // TODO: Set up expectations for how the query should be modified
+    // Example:
+    // $builder->shouldReceive('where')
+    //     ->once()
+    //     ->with('status', 'active')
+    //     ->andReturnSelf();
+
+    // Apply the specification to the query
+    $result = $this->specification->toQuery($builder);
+
+    // Assert the query builder was returned
+    expect($result)->toBe($builder);
+});
+
+it('can be combined with other specifications', function () {
+    $anotherSpec = Mockery::mock({{ class }}::class);
+    $anotherSpec->shouldReceive('isSatisfiedBy')->andReturn(true);
+    $anotherSpec->shouldReceive('toQuery')->andReturnUsing(fn($q) => $q);
+
+    // Test AND combination
+    $andSpec = $this->specification->and($anotherSpec);
+    expect($andSpec)->not->toBeNull();
+
+    // Test OR combination
+    $orSpec = $this->specification->or($anotherSpec);
+    expect($orSpec)->not->toBeNull();
+
+    // Test NOT combination
+    $notSpec = $this->specification->not();
+    expect($notSpec)->not->toBeNull();
+});
+
+it('generates a proper cache key', function () {
+    $cacheKey = $this->specification->getCacheKey();
+
+    expect($cacheKey)
+        ->toBeString()
+        ->not->toBeEmpty();
+    
+    // Ensure cache key is consistent
+    $secondCacheKey = $this->specification->getCacheKey();
+    expect($secondCacheKey)->toBe($cacheKey);
+});
+
+it('satisfies specification pattern contract', function () {
+    // Ensure the specification implements required methods
+    expect($this->specification)
+        ->toHaveMethod('isSatisfiedBy')
+        ->toHaveMethod('toQuery')
+        ->toHaveMethod('and')
+        ->toHaveMethod('or')
+        ->toHaveMethod('not')
+        ->toHaveMethod('getCacheKey');
+});

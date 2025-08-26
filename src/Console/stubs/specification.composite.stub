@@ -1,0 +1,121 @@
+<?php
+
+namespace {{ namespace }};
+
+use DangerWayne\Specification\Contracts\SpecificationInterface;
+use DangerWayne\Specification\Specifications\AbstractSpecification;
+use DangerWayne\Specification\Specifications\Common\WhereSpecification;
+use Illuminate\Database\Eloquent\Builder;
+
+class {{ class }} extends AbstractSpecification
+{
+    /**
+     * @var array<SpecificationInterface>
+     */
+    private array $specifications = [];
+
+    /**
+     * Create a new composite specification instance.
+     */
+    public function __construct()
+    {
+        // Build your composite specification here
+        $this->initializeSpecifications();
+    }
+
+    /**
+     * Initialize the specifications that make up this composite.
+     *
+     * @return void
+     */
+    protected function initializeSpecifications(): void
+    {
+        // Example specifications - customize these for your use case
+        // $this->specifications[] = new WhereSpecification('status', 'active');
+        // $this->specifications[] = new WhereSpecification('verified', true);
+        // Add more specifications as needed
+    }
+
+    /**
+     * Determine if the candidate satisfies all specifications.
+     *
+     * @param  mixed  $candidate
+     * @return bool
+     */
+    public function isSatisfiedBy(mixed $candidate): bool
+    {
+        foreach ($this->specifications as $specification) {
+            if (! $specification->isSatisfiedBy($candidate)) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
+    /**
+     * Apply all specifications to the query builder.
+     *
+     * @param  Builder  $query
+     * @return Builder
+     */
+    public function toQuery(Builder $query): Builder
+    {
+        foreach ($this->specifications as $specification) {
+            $query = $specification->toQuery($query);
+        }
+        
+        return $query;
+    }
+
+    /**
+     * Add a specification to the composite.
+     *
+     * @param  SpecificationInterface  $specification
+     * @return self
+     */
+    public function add(SpecificationInterface $specification): self
+    {
+        $this->specifications[] = $specification;
+        
+        return $this;
+    }
+
+    /**
+     * Remove all specifications.
+     *
+     * @return self
+     */
+    public function clear(): self
+    {
+        $this->specifications = [];
+        
+        return $this;
+    }
+
+    /**
+     * Get all specifications in this composite.
+     *
+     * @return array<SpecificationInterface>
+     */
+    public function getSpecifications(): array
+    {
+        return $this->specifications;
+    }
+
+    /**
+     * Get the specification parameters for cache key generation.
+     *
+     * @return array<string, mixed>
+     */
+    protected function getParameters(): array
+    {
+        $params = [];
+        
+        foreach ($this->specifications as $index => $specification) {
+            $params['spec_'.$index] = $specification->getCacheKey();
+        }
+        
+        return $params;
+    }
+}

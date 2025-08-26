@@ -1,0 +1,62 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use DangerWayne\Specification\Specifications\AbstractSpecification;
+use Illuminate\Database\Eloquent\Builder;
+
+class {{ class }} extends AbstractSpecification
+{
+    /**
+     * Create a new specification instance.
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Determine if the {{ modelVariable }} satisfies the specification.
+     *
+     * @param  mixed  $candidate
+     * @return bool
+     */
+    public function isSatisfiedBy(mixed $candidate): bool
+    {
+        if (! $candidate instanceof {{ model }}) {
+            return false;
+        }
+
+        // TODO: Implement your {{ model }} business rule logic here
+        // Example: return $candidate->status === 'active';
+        
+        return false;
+    }
+
+    /**
+     * Apply the specification to a {{ model }} query builder.
+     * 
+     * @param  Builder<{{ model }}>  $query
+     * @return Builder<{{ model }}>
+     */
+    public function toQuery(Builder $query): Builder
+    {
+        // TODO: Implement your {{ model }} query logic here
+        // Example: return $query->where('status', 'active');
+        
+        return $query;
+    }
+
+    /**
+     * Get the specification parameters for cache key generation.
+     *
+     * @return array<string, mixed>
+     */
+    protected function getParameters(): array
+    {
+        return [
+            // Add any constructor parameters here for caching
+        ];
+    }
+}
