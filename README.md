@@ -5,6 +5,11 @@ A powerful implementation of the Specification Pattern for Laravel applications.
 [![Tests](https://github.com/dangerwayne/laravel-specifications/actions/workflows/tests.yml/badge.svg)](https://github.com/dangerwayne/laravel-specifications/actions/workflows/tests.yml)
 [![Latest Version](https://img.shields.io/packagist/v/dangerwayne/laravel-specifications.svg?style=flat-square)](https://packagist.org/packages/dangerwayne/laravel-specifications)
 [![Total Downloads](https://img.shields.io/packagist/dt/dangerwayne/laravel-specifications.svg?style=flat-square)](https://packagist.org/packages/dangerwayne/laravel-specifications)
+[![Documentation](https://img.shields.io/badge/docs-ready-green.svg?style=flat-square)](https://laravel-specifications-doc.netlify.app)
+
+📚 **[Full Documentation](https://laravel-specifications-doc.netlify.app)** | 
+📦 [Packagist](https://packagist.org/packages/dangerwayne/laravel-specifications) | 
+⚡ [Quick Start](https://laravel-specifications-doc.netlify.app/quick-start/)
 
 ## Features
 

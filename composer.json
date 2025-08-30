@@ -1,6 +1,11 @@
 {
     "name": "dangerwayne/laravel-specifications",
     "description": "Elegant specification pattern implementation for Laravel with support for Eloquent queries and in-memory filtering",
+    "homepage": "https://laravel-specifications-doc.netlify.app",
+    "support": {
+        "docs": "https://laravel-specifications-doc.netlify.app",
+        "source": "https://github.com/dangerwayne/laravel-specifications"
+    },
     "keywords": ["laravel", "specification", "pattern", "ddd", "domain-driven-design", "business-rules"],
     "type": "library",
     "license": "MIT",
