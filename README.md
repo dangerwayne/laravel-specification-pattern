@@ -1,4 +1,4 @@
-# Laravel Specifications
+# <img src="https://laravel-specifications-doc.netlify.app/logo.svg" alt="Laravel Specifications" height="32"> Laravel Specifications
 
 A powerful implementation of the Specification Pattern for Laravel applications.
 
