@@ -307,9 +307,22 @@ composer format     # Code formatting with Pint
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
+## Feedback & Support
+
+We'd love to hear from you! Here are ways to provide feedback or get help:
+
+- 🐛 **Report Issues**: [Create an issue](https://github.com/dangerwayne/laravel-specifications/issues/new/choose) for bug reports
+- 💡 **Request Features**: [Suggest new features](https://github.com/dangerwayne/laravel-specifications/issues/new?template=feature_request.md)
+- 💬 **Ask Questions**: [Start a discussion](https://github.com/dangerwayne/laravel-specifications/discussions) or [ask a question](https://github.com/dangerwayne/laravel-specifications/issues/new?template=question.md)
+- 📧 **Email**: For private inquiries, reach out to the maintainers
+
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+We welcome contributions! Please see [CONTRIBUTING](CONTRIBUTING.md) for details on:
+- How to report issues
+- How to suggest features
+- How to submit pull requests
+- Development setup and standards
 
 ## Security Vulnerabilities
 
