@@ -22,9 +22,9 @@ class OrSpecification extends AbstractSpecification
     public function toQuery(Builder $query): Builder
     {
         return $query->where(function ($query) {
-            $this->left->toQuery($query);
+            return $this->left->toQuery($query);
         })->orWhere(function ($query) {
-            $this->right->toQuery($query);
+            return $this->right->toQuery($query);
         });
     }
 
