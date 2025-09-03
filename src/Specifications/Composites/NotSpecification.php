@@ -26,11 +26,43 @@ class NotSpecification extends AbstractSpecification
             });
         }
 
-        // For Laravel 9, use a basic implementation
-        // Note: This is a simplified version - full NOT logic would require more complex SQL
-        return $query->where(function ($q) {
-            $this->specification->toQuery($q);
+        // For Laravel 9, we need to manually negate the conditions
+        // Since whereNot is not available, we'll use a subquery approach
+        $model = $query->getModel();
+        $table = $model->getTable();
+        $keyName = $model->getKeyName();
+
+        // Create a subquery that will contain the conditions to negate
+        /** @var Builder $result */
+        $result = $query->whereNotExists(function (\Illuminate\Database\Query\Builder $subQuery) use ($table, $keyName, $model) {
+            $subQuery->select(\Illuminate\Support\Facades\DB::raw(1))
+                ->from($table.' as not_sub')
+                ->whereColumn('not_sub.'.$keyName, $table.'.'.$keyName);
+
+            // Create a new Eloquent builder instance for applying the specification
+            /** @var Builder $tempBuilder */
+            $tempBuilder = $model->newQuery();
+
+            // Apply the specification to get the conditions
+            $this->specification->toQuery($tempBuilder);
+
+            // Extract and apply the where conditions to the subquery
+            $queryBuilder = $tempBuilder->getQuery();
+            if (! empty($queryBuilder->wheres)) {
+                foreach ($queryBuilder->wheres as $where) {
+                    $subQuery->wheres[] = $where;
+                }
+
+                // Also copy the bindings
+                if (isset($queryBuilder->bindings['where'])) {
+                    foreach ($queryBuilder->bindings['where'] as $binding) {
+                        $subQuery->addBinding($binding, 'where');
+                    }
+                }
+            }
         });
+
+        return $result;
     }
 
     /**

@@ -31,7 +31,12 @@ abstract class AbstractSpecification implements SpecificationInterface
 
     public function getCacheKey(): string
     {
-        return md5(static::class.serialize($this->getParameters()));
+        // Use JSON encoding for consistent, safe serialization
+        // Add separator to prevent collisions
+        $className = static::class;
+        $parameters = json_encode($this->getParameters(), JSON_THROW_ON_ERROR);
+
+        return md5($className.'::'.$parameters);
     }
 
     /**
