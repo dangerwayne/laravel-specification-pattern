@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Laravel 12 Support**: Full compatibility with Laravel 12.x
+- **PHP 8.4 Support**: Added support for PHP 8.4 in CI/CD pipeline
+- **Orchestra Testbench 10.x**: Updated to support Laravel 12 testing
+- **PHPUnit 12.x**: Added support for PHPUnit 12.x
+
+### Enhanced
+- **Testing Matrix**: Extended CI/CD matrix to include Laravel 12 with PHP 8.3 and 8.4
+- **Dependencies**: Updated all Laravel dependencies to support ^12.0 versions
+
 ## [0.2.0] - 2025-08-26
 
 ### Added
