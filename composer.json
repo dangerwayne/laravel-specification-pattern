@@ -17,13 +17,13 @@
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/support": "^9.0|^10.0|^11.0",
-        "illuminate/database": "^9.0|^10.0|^11.0",
-        "illuminate/collections": "^9.0|^10.0|^11.0"
+        "illuminate/support": "^9.0|^10.0|^11.0|^12.0",
+        "illuminate/database": "^9.0|^10.0|^11.0|^12.0",
+        "illuminate/collections": "^9.0|^10.0|^11.0|^12.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^7.0|^8.0|^9.0",
-        "phpunit/phpunit": "^9.5.10|^10.0|^11.0",
+        "orchestra/testbench": "^7.0|^8.0|^9.0|^10.0",
+        "phpunit/phpunit": "^9.5.10|^10.0|^11.0|^12.0",
         "phpstan/phpstan": "^1.10",
         "laravel/pint": "^1.0",
         "mockery/mockery": "^1.5"

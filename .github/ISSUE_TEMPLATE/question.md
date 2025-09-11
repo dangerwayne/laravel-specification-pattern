@@ -18,6 +18,6 @@ Please describe what you've already attempted.
 ```
 
 **Environment:**
- - Laravel Version: [e.g. 11.0]
+ - Laravel Version: [e.g. 11.0, 12.0]
  - PHP Version: [e.g. 8.2]
  - Package Version: [e.g. 1.0.0]
