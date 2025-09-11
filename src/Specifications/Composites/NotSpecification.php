@@ -54,9 +54,10 @@ class NotSpecification extends AbstractSpecification
                 }
 
                 // Also copy the bindings
-                $whereBindings = $queryBuilder->bindings['where'] ?? [];
-                foreach ($whereBindings as $binding) {
-                    $subQuery->addBinding($binding, 'where');
+                if (! empty($queryBuilder->bindings['where'])) {
+                    foreach ($queryBuilder->bindings['where'] as $binding) {
+                        $subQuery->addBinding($binding, 'where');
+                    }
                 }
             }
         });

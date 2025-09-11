@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Dependencies**: Updated all Laravel dependencies to support ^12.0 versions
 
 ### Fixed
-- **PHPStan Compatibility**: Fixed PHPStan error in NotSpecification.php for Laravel 12 query builder changes
+- **PHPStan Compatibility**: Simplified bindings check in NotSpecification.php to avoid PHPStan errors with Laravel 12's query builder structure
 
 ## [0.2.0] - 2025-08-26
 
