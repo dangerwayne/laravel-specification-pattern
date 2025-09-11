@@ -45,7 +45,7 @@ composer format
 ## Code Standards
 
 - **PHP Version**: Minimum PHP 8.0
-- **Laravel Versions**: Support for Laravel 9, 10, and 11
+- **Laravel Versions**: Support for Laravel 9, 10, 11, and 12
 - **Code Style**: We use Laravel Pint for code formatting
 - **Static Analysis**: PHPStan level 8
 - **Testing**: All new features must include tests

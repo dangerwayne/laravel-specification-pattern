@@ -24,7 +24,7 @@ A clear and concise description of what you expected to happen.
 ```
 
 **Environment:**
- - Laravel Version: [e.g. 11.0]
+ - Laravel Version: [e.g. 11.0, 12.0]
  - PHP Version: [e.g. 8.2]
  - Package Version: [e.g. 1.0.0]
 
