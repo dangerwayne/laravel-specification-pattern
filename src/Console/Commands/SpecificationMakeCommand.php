@@ -51,10 +51,8 @@ class SpecificationMakeCommand extends GeneratorCommand
             return false;
         }
 
-        // Generate test if requested
-        if ($this->option('test') || $this->option('pest')) {
-            $this->handleTestCreation();
-        }
+        // Use the trait's method for test creation (only creates if --test or --pest options are used)
+        $this->handleTestCreation($this->getPath($this->getNameInput()));
 
         return $result;
     }
@@ -213,23 +211,6 @@ class SpecificationMakeCommand extends GeneratorCommand
     }
 
     /**
-     * Handle the test creation.
-     */
-    protected function handleTestCreation(): void
-    {
-        $testType = $this->option('pest') ? 'pest' : 'test';
-
-        $this->call('make:test', [
-            'name' => Str::of($this->argument('name'))
-                ->replace('\\', '/')
-                ->append('Test')
-                ->value(),
-            '--unit' => true,
-            '--pest' => $this->option('pest'),
-        ]);
-    }
-
-    /**
      * Get the console command arguments.
      */
     protected function getArguments(): array
@@ -250,7 +231,7 @@ class SpecificationMakeCommand extends GeneratorCommand
             ['composite', 'c', InputOption::VALUE_NONE, 'Create a composite specification with example composition'],
             ['cacheable', null, InputOption::VALUE_NONE, 'Include the CacheableSpecification trait'],
             ['builder', 'b', InputOption::VALUE_NONE, 'Generate specification using the builder pattern'],
-            // test option is already provided by CreatesMatchingTest trait
+            ['test', null, InputOption::VALUE_NONE, 'Generate an accompanying PHPUnit test'],
             ['pest', null, InputOption::VALUE_NONE, 'Generate an accompanying Pest test'],
             ['type', null, InputOption::VALUE_OPTIONAL, 'The type of specification (query, collection, both)', 'both'],
             ['inline', null, InputOption::VALUE_NONE, 'Create specification without domain folder structure'],
