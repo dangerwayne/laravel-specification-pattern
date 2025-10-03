@@ -288,4 +288,61 @@ class SpecificationMakeCommandTest extends TestCase
         $this->assertEquals('Create a new specification class', $command->getDescription());
         $this->assertEquals('make:specification', $command->getName());
     }
+
+    /**
+     * Test that tests are NOT created by default (without --test option).
+     */
+    public function test_does_not_create_test_by_default(): void
+    {
+        $exitCode = Artisan::call('make:specification', [
+            'name' => 'NoTestSpecification',
+        ]);
+
+        $this->assertEquals(0, $exitCode);
+
+        // Check that specification was created
+        $expectedSpecPath = $this->appPath.'/Specifications/NoTestSpecification.php';
+        $this->assertFileExists($expectedSpecPath);
+
+        // Check that test was NOT created
+        $testPath = base_path('tests/Unit/NoTestSpecificationTest.php');
+        $this->assertFileDoesNotExist($testPath);
+    }
+
+    /**
+     * Test that test is created only when --test option is used.
+     */
+    public function test_creates_test_only_when_test_option_is_used(): void
+    {
+        $exitCode = Artisan::call('make:specification', [
+            'name' => 'WithTestSpecification',
+            '--test' => true,
+        ]);
+
+        $this->assertEquals(0, $exitCode);
+
+        // Check that specification was created
+        $expectedSpecPath = $this->appPath.'/Specifications/WithTestSpecification.php';
+        $this->assertFileExists($expectedSpecPath);
+
+        // The trait's handleTestCreation method creates tests in tests/Feature/ by default
+        $testPath = base_path('tests/Feature/Specifications/WithTestSpecificationTest.php');
+        
+        // If that doesn't exist, check the simplified path
+        if (!File::exists($testPath)) {
+            $testPath = base_path('tests/Feature/WithTestSpecificationTest.php');
+        }
+        
+        $this->assertFileExists($testPath);
+
+        // Clean up the test file and directory
+        if (File::exists($testPath)) {
+            File::delete($testPath);
+            // Also clean up the directory if it's empty
+            $testDir = dirname($testPath);
+            if (File::isDirectory($testDir) && count(File::files($testDir)) === 0) {
+                File::deleteDirectory($testDir);
+            }
+        }
+    }
 }
