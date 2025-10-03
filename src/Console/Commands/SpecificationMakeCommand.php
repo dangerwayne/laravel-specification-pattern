@@ -210,7 +210,6 @@ class SpecificationMakeCommand extends GeneratorCommand
         return $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php';
     }
 
-
     /**
      * Get the console command arguments.
      */

@@ -327,12 +327,12 @@ class SpecificationMakeCommandTest extends TestCase
 
         // The trait's handleTestCreation method creates tests in tests/Feature/ by default
         $testPath = base_path('tests/Feature/Specifications/WithTestSpecificationTest.php');
-        
+
         // If that doesn't exist, check the simplified path
-        if (!File::exists($testPath)) {
+        if (! File::exists($testPath)) {
             $testPath = base_path('tests/Feature/WithTestSpecificationTest.php');
         }
-        
+
         $this->assertFileExists($testPath);
 
         // Clean up the test file and directory
